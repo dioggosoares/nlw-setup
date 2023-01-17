@@ -1,0 +1,15 @@
+version: '3.3'
+
+volumes:
+  mysql_data:
+
+services:
+    mysql:
+        container_name: nlw-setup
+        environment:
+            - MYSQL_ROOT_PASSWORD=docker123
+        ports:
+            - '3306:3306'
+        volumes:
+            - 'mysql_data:/var/lib/mysql'
+        image: 'mysql:latest'
