@@ -6,6 +6,7 @@
     "no-unused-vars": "warn",
     "no-unreachable": "off",
     "camelcase": "off",
+    "prefer-const": "off",
     "react-hooks/exhaustive-deps": "off"
   }
 }
