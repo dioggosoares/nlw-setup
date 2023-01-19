@@ -8,11 +8,6 @@ module.exports = {
       },
       colors: {
         background: '#09090A',
-        green: {
-          300: '#00B37E',
-          500: '#00875F',
-          700: '#015F43',
-        },
         blue: {
           500: '#81D8F7',
         },
