@@ -63,8 +63,8 @@ export function NewHabitForm() {
         type="text"
         id="title"
         placeholder="ex.: Exercícios, dormir bem etc..."
-        className="p-4 rounded-lg mt-3 bg-zinc-800 text-white placeholder:text-zinc-400 border border-zinc-800 focus:outline-0
-        focus:ring-zinc-500 focus:border-zinc-500 hover:border-zinc-500 transition-all duration-500 ease-in-out"
+        className="p-4 rounded-lg mt-3 bg-zinc-800 text-white placeholder:text-zinc-400 border-2 border-zinc-900 focus:outline-0
+        focus:ring-green-500 focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-900 transition-all duration-500 ease-in-out"
         autoFocus
         value={title}
         onChange={(e) => setTitle(e.target.value)}
@@ -101,7 +101,8 @@ export function NewHabitForm() {
 
       <button
         type="submit"
-        className="flex items-center justify-center mt-6 rounded-lg p-4 gap-3 font-semibold bg-green-600 hover:bg-green-500 transition-all duration-500 ease-in-out"
+        className="flex items-center justify-center mt-6 rounded-lg p-4 gap-3 font-semibold bg-green-600 hover:bg-green-500
+        focus:outline-0 focus:ring-green-500 focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-900 transition-all duration-500 ease-in-out"
       >
         <Check size={20} weight="bold" />
         Confirmar
