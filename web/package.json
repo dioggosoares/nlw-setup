@@ -9,15 +9,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.9.10",
     "@my-ignite-ui/react": "^1.6.1",
     "@primittive-ui/react": "^2.2.0",
+    "@radix-ui/react-checkbox": "^1.0.1",
     "@radix-ui/react-dialog": "^1.0.2",
     "@radix-ui/react-popover": "^1.0.3",
+    "axios": "^1.2.3",
     "clsx": "^1.2.1",
     "dayjs": "^1.11.7",
     "phosphor-react": "^1.4.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.42.1",
+    "react-toastify": "^9.1.1",
+    "zod": "^3.20.2"
   },
   "devDependencies": {
     "@primittive/eslint-config": "^1.0.3",
