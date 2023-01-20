@@ -11,6 +11,7 @@ import { CheckBox } from '../Form/Checkbox'
 
 export function NewHabitForm() {
   const [title, setTitle] = useState('')
+  const [warnings, setWarnings] = useState('')
   const [weekDays, setWeekDays] = useState<number[]>([])
 
   const availableWeekDays = getWeekDays()
@@ -18,22 +19,24 @@ export function NewHabitForm() {
   async function createNewHabit(e: FormEvent) {
     e.preventDefault()
 
-    if (!title || weekDays.length === 0) {
-      toast('Coloque o título e selecione pelo menos um dia da semana!!')
-      return
-    }
-
     try {
-      const response = await api.post('/habits', {
-        title,
-        weekDays,
-      })
+      if (!title) {
+        setWarnings('Coloque um título para o hábito!!')
+      } else if (weekDays.length === 0) {
+        setWarnings('Selecione pelo menos um dia da semana!')
+      } else {
+        const response = await api.post('/habits', {
+          title,
+          weekDays,
+        })
 
-      if (response) {
-        toast('Hábito criado com sucesso 🤩!!')
+        if (response) {
+          toast('Hábito criado com sucesso 🤩!!')
 
-        setTitle('')
-        setWeekDays([])
+          setTitle('')
+          setWeekDays([])
+          setWarnings('')
+        }
       }
     } catch (error) {
       if (error instanceof AxiosError && error.message) {
@@ -70,6 +73,8 @@ export function NewHabitForm() {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
+
+      <span className="text-sm text-red-500 px-3 mt-4">{warnings}</span>
 
       <label htmlFor="" className="font-semibold leading-tight mt-4">
         Qual a recorrência?
