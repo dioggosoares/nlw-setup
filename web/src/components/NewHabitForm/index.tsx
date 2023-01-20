@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import { getWeekDays } from '../../utils/get-week-days'
 import { api } from '../../lib/axios'
+import { CheckBox } from '../Form/Checkbox'
 
 export function NewHabitForm() {
   const [title, setTitle] = useState('')
@@ -79,21 +80,11 @@ export function NewHabitForm() {
           return (
             <Checkbox.Root
               key={weekDay}
-              className="flex items-center gap-3 group"
+              className="flex items-center gap-3 group focus:outline-none"
               checked={weekDays.includes(index)}
               onCheckedChange={() => handleToggleWeekDay(index)}
             >
-              <div
-                className="w-8 h-8 rounded-lg flex items-center justify-center bg-zinc-900 border-2 border-zinc-800
-                group-data-[state=checked]:bg-green-500 group-data-[state=checked]:border-green-500 focus:outline-0 focus:ring-green-500 focus:border-green-500
-                hover:border-green-500 transitions-all duration-500 ease-in-out"
-              >
-                <Checkbox.Indicator>
-                  <Check size={20} className="text-white" />
-                </Checkbox.Indicator>
-              </div>
-
-              <span className="text-white leading-tight">{weekDay}</span>
+              <CheckBox label={weekDay} checkType="weekday" type="button" />
             </Checkbox.Root>
           )
         })}

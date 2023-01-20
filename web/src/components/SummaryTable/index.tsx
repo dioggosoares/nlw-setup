@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { generateDatesFromYearBeginning } from '../../utils/generate-dates-from-year-beginning'
 import { HabitDay } from '../HabitDay'
 
-import squares from '../../assets/squares.svg'
+import squares from '../../assets/unfilled-squares.svg'
 import { api } from '../../lib/axios'
 
 const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
