@@ -89,7 +89,7 @@ export function NewHabitForm() {
               checked={weekDays.includes(index)}
               onCheckedChange={() => handleToggleWeekDay(index)}
             >
-              <CheckBox label={weekDay} checkType="weekday" type="button" />
+              <CheckBox label={weekDay} checkType="weekday" />
             </Checkbox.Root>
           )
         })}
