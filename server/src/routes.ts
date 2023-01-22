@@ -5,7 +5,11 @@ import { z } from 'zod'
 import { prisma } from "./lib/prisma"
 
 export async function appRoutes(app: FastifyInstance) {
-  app.post('/habits', async (req) => {
+
+  const today = dayjs().startOf('day').toDate()
+  const parsedWeekday = dayjs().day()
+
+  app.post('/habits', async (req, rep) => {
     const createHabitBody = z.object({
       title: z.string(),
       weekDays: z.array(
@@ -15,21 +19,50 @@ export async function appRoutes(app: FastifyInstance) {
     
     const { title, weekDays } = createHabitBody.parse(req.body)
 
-    const today = dayjs().startOf('day').toDate()
-
-    await prisma.habit.create({
-      data: {
+    const existsHabitOnWeekday = await prisma.habit.findMany({
+      where: {
         title,
-        created_at: today,
         weekDays: {
-          create: weekDays.map(weekDay => {
-            return {
-              week_day: weekDay,
-            }
-          })
+          some: {
+            week_day: parsedWeekday,
+          }
         }
       }
     })
+
+    if (!existsHabitOnWeekday) {
+      await prisma.habit.create({
+        data: {
+          title,
+          created_at: today,
+          weekDays: {
+            create: weekDays.map(weekDay => {
+              return {
+                week_day: weekDay,
+              }
+            })
+          }
+        }
+      })
+    } else {
+      rep.code(404).send({ message: 'Hábito já cadastrado para esse dia da semana.' })
+    }
+  })
+
+  app.get('/existday', async (req, rep) => {
+
+    let day = await prisma.day.findUnique({
+      where: {
+        date: today,
+      }
+    })
+
+    return {
+      day: day?.date
+    }
+  })
+
+  app.post('/enableday', async (req, rep) => {
 
     let day = await prisma.day.findUnique({
       where: {
@@ -43,6 +76,8 @@ export async function appRoutes(app: FastifyInstance) {
           date: today,
         }
       })
+    } else {
+      rep.code(200).send({ message: 'Dia já disponível.' })
     }
   })
 
