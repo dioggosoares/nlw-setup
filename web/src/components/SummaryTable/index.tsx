@@ -1,15 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { Minus, Plus } from 'phosphor-react'
-import { AxiosError } from 'axios'
 import dayjs from 'dayjs'
-import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 import { generateDatesFromYearBeginning } from '../../utils/generate-dates-from-year-beginning'
 import { HabitDay } from '../HabitDay'
 
+import { HabitsContext } from '../../contexts/HabitsContext'
+
 import squares from '../../assets/unfilled-squares.svg'
-import { api } from '../../lib/axios'
 
 const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
 
@@ -18,32 +17,8 @@ const summaryDates = generateDatesFromYearBeginning()
 const minimumSummaryDateSize = 18 * 7 // 18 weeks
 const amountOfDaysToFill = minimumSummaryDateSize - summaryDates.length
 
-interface Summary {
-  id: string
-  date: string
-  amount: number
-  completed: number
-}
-
 export function SummaryTable() {
-  const [summary, setSummary] = useState<Summary[]>([])
-
-  async function getSummary() {
-    try {
-      const response = await api.get('/summary')
-      setSummary(response.data)
-    } catch (error) {
-      if (error instanceof AxiosError && error.message) {
-        const warn =
-          error.message === 'Network Error' && 'Servidor fora do ar!!'
-        toast(`${warn} 😮‍💨 !!!`)
-      }
-    }
-  }
-
-  useEffect(() => {
-    getSummary()
-  }, [])
+  const { summary } = useContext(HabitsContext)
 
   return (
     <div className="w-full flex flex-col gap-4">

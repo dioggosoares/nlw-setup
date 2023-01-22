@@ -1,15 +1,17 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent, useContext, useState } from 'react'
 import { AxiosError } from 'axios'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { Check } from 'phosphor-react'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-import { getWeekDays } from '../../utils/get-week-days'
 import { api } from '../../lib/axios'
+import { HabitsContext } from '../../contexts/HabitsContext'
+import { getWeekDays } from '../../utils/get-week-days'
 import { CheckBox } from '../Form/Checkbox'
 
 export function NewHabitForm() {
+  const { getSummary } = useContext(HabitsContext)
   const [title, setTitle] = useState('')
   const [warnings, setWarnings] = useState('')
   const [weekDays, setWeekDays] = useState<number[]>([])
@@ -32,6 +34,7 @@ export function NewHabitForm() {
 
         if (response) {
           toast('Hábito criado com sucesso 🤩!!')
+          getSummary()
 
           setTitle('')
           setWeekDays([])
