@@ -30,6 +30,20 @@ export async function appRoutes(app: FastifyInstance) {
         }
       }
     })
+
+    let day = await prisma.day.findUnique({
+      where: {
+        date: today,
+      }
+    })
+
+    if (!day) {
+      day = await prisma.day.create({
+        data: {
+          date: today,
+        }
+      })
+    }
   })
 
   app.get('/day', async (req) => {
