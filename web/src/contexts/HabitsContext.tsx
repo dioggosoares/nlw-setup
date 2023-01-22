@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import { api } from '../lib/axios'
 import { Summary } from '../@types/summary'
+import dayjs from 'dayjs'
 
 export interface HabitsContextType {
   summary: Summary[]
@@ -43,8 +44,25 @@ export function HabitsContextProvider({
     }
   }
 
+  async function createDay() {
+    try {
+      const existDay = await api.get('/existday')
+
+      if (Object.keys(existDay?.data).length === 0) {
+        await api.post('/enableday')
+      }
+    } catch (error) {
+      if (error instanceof AxiosError && error.message) {
+        const warn =
+          error.message === 'Network Error' && 'Servidor fora do ar!!'
+        toast(`${warn} 😮‍💨 !!!`)
+      }
+    }
+  }
+
   useEffect(() => {
     getSummary()
+    createDay()
   }, [])
 
   return (

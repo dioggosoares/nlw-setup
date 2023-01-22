@@ -42,8 +42,8 @@ export function NewHabitForm() {
         }
       }
     } catch (error) {
-      if (error instanceof AxiosError && error.message) {
-        toast(`${error.message} 😮‍💨 !!!`)
+      if (error instanceof AxiosError && error?.response?.data?.message) {
+        toast(`${error?.response?.data?.message} 😮‍💨 !!!`)
       }
     }
   }
