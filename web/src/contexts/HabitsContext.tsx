@@ -5,7 +5,6 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import { api } from '../lib/axios'
 import { Summary } from '../@types/summary'
-import dayjs from 'dayjs'
 
 export interface HabitsContextType {
   summary: Summary[]
