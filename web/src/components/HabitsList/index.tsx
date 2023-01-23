@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { AxiosError } from 'axios'
 import dayjs from 'dayjs'
@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import { CheckBox } from '../Form/Checkbox'
 import { api } from '../../lib/axios'
+import { HabitsContext } from '../../contexts/HabitsContext'
 
 interface HabitsListProps {
   date: Date
@@ -24,6 +25,7 @@ interface HabitsInfo {
 
 export function HabitsList({ date, onCompletedChanged }: HabitsListProps) {
   const [habitsInfo, setHabitsInfo] = useState<HabitsInfo>()
+  const { getSummary } = useContext(HabitsContext)
 
   const isDateInPast = dayjs(date).endOf('day').isBefore(new Date())
 
@@ -74,6 +76,7 @@ export function HabitsList({ date, onCompletedChanged }: HabitsListProps) {
 
   useEffect(() => {
     getHabits()
+    getSummary()
   }, [])
 
   return (

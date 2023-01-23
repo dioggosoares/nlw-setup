@@ -22,6 +22,8 @@ export function HabitDay({
   const completedPercentage =
     amount > 0 ? Math.round((completed / amount) * 100) : 0
 
+  const today = dayjs().startOf('day').toDate()
+
   const dayAndMonth = dayjs(date).format('DD/MM')
   const dayOfWeek = dayjs(date).format('dddd')
 
@@ -32,9 +34,13 @@ export function HabitDay({
   return (
     <Popover.Root>
       <Popover.Trigger
-        className="flex items-center justify-center w-10 h-10 bg-zinc-900 border-2
-        border-zinc-800 rounded-lg focus:outline-0 focus:ring-violet-600 focus:ring-2
-        focus:ring-offset-2 focus:ring-offset-zinc-900 transition-all duration-500 ease-in-out"
+        autoFocus
+        className={clsx(
+          'flex items-center justify-center w-10 h-10 bg-zinc-900 border-2 border-zinc-800 rounded-lg focus:outline-0 focus:ring-violet-600 focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-900 transition-all duration-500 ease-in-out',
+          {
+            'focus:ring-green-500': date.toISOString() === today.toISOString(),
+          },
+        )}
       >
         <div
           className={clsx(
@@ -67,16 +73,6 @@ export function HabitDay({
           <ProgressBar progress={completedPercentage} />
 
           <HabitsList date={date} onCompletedChanged={handleCompletedChanged} />
-
-          {/* <div className="flex flex-col gap-3 mt-6">
-            <Checkbox.Root className="flex items-center gap-3 group focus:outline-none">
-              <CheckBox
-                label="Beber 2L de água"
-                checkType="habit"
-                type="button"
-              />
-            </Checkbox.Root>
-          </div> */}
 
           <Popover.Arrow height={8} width={16} className="fill-zinc-900" />
         </Popover.Content>
