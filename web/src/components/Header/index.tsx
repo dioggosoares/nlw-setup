@@ -6,7 +6,7 @@ import { NewHabitForm } from '../NewHabitForm'
 
 export function Header() {
   return (
-    <header className="flex items-center justify-between w-full max-w-5xl mx-auto py-8 px-10">
+    <header className="flex items-center justify-between w-full max-w-5xl mx-auto mt-96 lg:mt-0 md:mt-44 md:px-10 lg:pt-0">
       <img src={logo} alt="Habits" />
 
       <Dialog.Root>

@@ -21,9 +21,15 @@ export function SummaryTable() {
   const { summary } = useContext(HabitsContext)
 
   return (
-    <div className="w-full flex flex-col gap-4">
-      <div id="habits" className="w-full flex">
-        <div id="weekDays" className="grid grid-rows-7 grid-flow-row gap-3">
+    <div className="w-full flex flex-col gap-4 items-center">
+      <div
+        id="habits"
+        className="w-full max-w-[25rem] lg:max-w-[61rem] flex flex-col lg:flex lg:flex-row"
+      >
+        <div
+          id="weekDays"
+          className="flex lg:grid lg:grid-row-7 lg:grid-flow-row gap-3 mx-auto"
+        >
           {weekDays.map((weekDay, i) => {
             return (
               <div
@@ -35,7 +41,10 @@ export function SummaryTable() {
             )
           })}
         </div>
-        <div id="habitDay" className="grid grid-rows-7 grid-flow-col gap-3">
+        <div
+          id="habitDay"
+          className="flex flex-wrap lg:grid lg:grid-rows-7 lg:grid-flow-col gap-3 justify-center"
+        >
           {summary.length > 0 &&
             summaryDates.map((date) => {
               const dayInSummary = summary.find((day) => {
