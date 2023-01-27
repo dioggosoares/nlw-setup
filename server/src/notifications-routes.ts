@@ -36,7 +36,7 @@ export async function notificationRoutes(app: FastifyInstance) {
 
     setTimeout(() => {
       WebPush.sendNotification(subscription, 'Olá, você já praticou seus hábitos hoje?')
-    }, 50400) // 14 horas
+    }, 5000) // 14 horas
 
     return rep.status(201).send()
   })
